@@ -24,8 +24,13 @@ public class MainApp extends Application {
         primaryStage.show();
     }
 
+    public void mostrarVentanaGuardar() {
+        VentanaGuardado ventanaGuardado = new VentanaGuardado();
+        primaryStage.setScene(ventanaGuardado.getScene());
+        primaryStage.show();
+    }
+
     public static void main(String[] args) {
         launch(args);
     }
-
 }
