@@ -1,4 +1,6 @@
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,21 +11,47 @@ public class ListaProductos {
         listaProductos = new ArrayList<>();
     }
 
-    public void guardarProductos(File file) throws IOException {
-        // Try with resources to save the list of products to a file
-        try( ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))) {
-            out.writeObject(listaProductos);
+    public void guardarProductos(Path path) throws IOException {
+        // Guardar la lista de productos en un archivo JSON
+        StringBuilder json = new StringBuilder();
+        json.append("[\n");
+        for (Producto p : listaProductos) {
+            json.append(p.toJson()).append(",\n");
         }
+        json.deleteCharAt(json.length() - 2);
+        json.append("]");
+        Files.writeString(path, json.toString());
+
     }
 
-    public void cargarProductos(File file) throws IOException {
-        // Try with resources to read the list of products from a file
-        try( ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
-            listaProductos.clear();
-            List<Producto> productos = (List<Producto>) ois.readObject();
-            listaProductos.addAll(productos);
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+    public void cargarProductos(Path path) throws IOException {
+        // Cargar la lista de productos desde un archivo JSON
+        if (!Files.exists(path)) {
+            System.out.println("El archivo no existe.");
+            return;
+        }
+        // Leer el archivo JSON
+        String json = Files.readString(path);
+        json = json.trim();
+        if (json.startsWith("[")) {
+            json = json.substring(1);
+        }
+        if (json.endsWith("]")) {
+            json = json.substring(0, json.length() - 1);
+        }
+        json = json.trim();
+        if (json.isEmpty()) {
+            return;
+        }
+        String[] productos = json.split("},\\s*\\{");
+        for (int i = 0; i < productos.length; i++) {
+            if (!productos[i].startsWith("{")) {
+                productos[i] = "{" + productos[i];
+            }
+            if (!productos[i].endsWith("}")) {
+                productos[i] = productos[i] + "}";
+            }
+            listaProductos.add(Producto.fromJson(productos[i]));
         }
     }
 

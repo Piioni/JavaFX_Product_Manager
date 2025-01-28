@@ -63,7 +63,7 @@ public class VentanaGuardado {
         File file = fileChooser.showSaveDialog(stage);
         if (file != null) {
             try {
-                listaProductos.guardarProductos(file);
+                listaProductos.guardarProductos(file.toPath());
                 System.out.println("Guardado en: " + file.getAbsolutePath());
             } catch (IOException e) {
                 System.out.println("Error al guardar el archivo: " + e.getMessage());
@@ -79,7 +79,7 @@ public class VentanaGuardado {
         File file = fileChooser.showOpenDialog(stage);
         if (file != null) {
             try {
-                listaProductos.cargarProductos(file);
+                listaProductos.cargarProductos(file.toPath());
                 System.out.println("Cargado desde: " + file.getAbsolutePath());
             } catch (IOException e) {
                 System.out.println("Error al cargar el archivo: " + e.getMessage());

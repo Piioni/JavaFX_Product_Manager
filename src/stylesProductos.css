@@ -10,29 +10,34 @@
 .label {
     -fx-font-size: 15px;
     -fx-font-weight: bold;
-    -fx-text-fill: #3a2d28; /* Text color */
+    -fx-text-fill: #3a2d28;
 }
 
 /* Bold style for the product list label */
 .label-title {
     -fx-font-weight: bold;
     -fx-font-size: 24px;
-    -fx-text-fill: #3a2d28; /* Text color */
+    -fx-text-fill: #3a2d28;
 }
 
 /* Styles for text fields */
 .text-field {
     -fx-padding: 5px;
-    -fx-border-color: #3a2d28; /* Border color */
+    -fx-border-color: #3a2d28;
     -fx-border-radius: 3px;
     -fx-background-radius: 3px;
-    -fx-background-color: #ece4dc; /* Background color */
+    -fx-background-color: #ece4dc;
+}
+
+/* Styles for the product list */
+.list-view {
+    -fx-background-color: #ece4dc;
 }
 
 /* Styles for buttons */
 .button {
-    -fx-background-color: #3a2d28; /* Button background color */
-    -fx-text-fill: white; /* Button text color */
+    -fx-background-color: #3a2d28;
+    -fx-text-fill: white;
     -fx-padding: 10px 20px;
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;

@@ -15,23 +15,16 @@ public class VentanaProductos {
     }
 
     public Scene getScene() {
+
+        // panel izquierdo (Labels, textfields y botones)
         VBox panelIzquierdo = new VBox(20);
         panelIzquierdo.setPadding(new Insets(20));
         panelIzquierdo.getStyleClass().add("root");
 
-        // Sección de campos
+        // Panel para los labels y textfields
         VBox panelCampos = new VBox(10);
-        txtCodigo = new TextField();
-        txtCodigo.getStyleClass().add("text-field");
-        txtNombre = new TextField();
-        txtNombre.getStyleClass().add("text-field");
-        txtCantidad = new TextField();
-        txtCantidad.getStyleClass().add("text-field");
-        txtPrecio = new TextField();
-        txtPrecio.getStyleClass().add("text-field");
-        txtDescripcion = new TextField();
-        txtDescripcion.getStyleClass().add("text-field");
 
+        // Creación y estilización de los labels
         Label lblCodigo = new Label("Código");
         lblCodigo.getStyleClass().add("label");
         Label lblNombre = new Label("Nombre");
@@ -43,6 +36,19 @@ public class VentanaProductos {
         Label lblDescripcion = new Label("Descripción");
         lblDescripcion.getStyleClass().add("label");
 
+        // Creation y estilización de los textfields
+        txtCodigo = new TextField();
+        txtCodigo.getStyleClass().add("text-field");
+        txtNombre = new TextField();
+        txtNombre.getStyleClass().add("text-field");
+        txtCantidad = new TextField();
+        txtCantidad.getStyleClass().add("text-field");
+        txtPrecio = new TextField();
+        txtPrecio.getStyleClass().add("text-field");
+        txtDescripcion = new TextField();
+        txtDescripcion.getStyleClass().add("text-field");
+
+        // Añadir labels y textfields al panel
         panelCampos.getChildren().addAll(
                 lblCodigo, txtCodigo,
                 lblNombre, txtNombre,
@@ -51,10 +57,12 @@ public class VentanaProductos {
                 lblDescripcion, txtDescripcion
         );
 
-        // Sección de botones
+        // Panel (izquierdo) de botones
         HBox panelBotones = new HBox(25);
         panelBotones.setAlignment(Pos.CENTER);
         panelBotones.setPadding(new Insets(20, 0, 0, 0));
+
+        // Creación y estilización de los botones
         Button btnAgregar = new Button("Agregar");
         btnAgregar.getStyleClass().add("button");
         btnAgregar.setOnAction(e -> agregarProducto());
@@ -67,10 +75,11 @@ public class VentanaProductos {
 
         panelBotones.getChildren().addAll(btnAgregar, btnEliminar, btnBuscar);
 
-        // Añadir ambas secciones al panel izquierdo
+        // Añadir ambas secciones al panel izquierdo y centrarlos
         panelIzquierdo.getChildren().addAll(panelCampos, panelBotones);
         panelIzquierdo.setAlignment(Pos.CENTER);
 
+        // panel derecho (Listado de productos)
         VBox panelDerecho = new VBox(20);
         panelDerecho.setPadding(new Insets(20));
 
@@ -78,12 +87,15 @@ public class VentanaProductos {
         listadoProductos.getStyleClass().add("label-title");
 
         lista = new ListView<>();
-        lista.setPrefHeight(250);
+        lista.setPrefHeight(225);
+        lista.getStyleClass().add("list-view");
 
-        // Sección de botones
+        // Panel (derecho) de botones
         HBox panelBotonesDerecha = new HBox(25);
         panelBotonesDerecha.setAlignment(Pos.CENTER);
         panelBotonesDerecha.setPadding(new Insets(20, 0, 0, 0));
+
+        // Creación y estilización de los botones
         Button btnMostrar = new Button("Mostrar");
         btnMostrar.getStyleClass().add("button");
         btnMostrar.setOnAction(e -> mostrarProductos());
@@ -96,6 +108,7 @@ public class VentanaProductos {
         panelDerecho.getChildren().addAll(listadoProductos, lista, panelBotonesDerecha);
         panelDerecho.setAlignment(Pos.CENTER);
 
+        // Creation del SplitPane (panel dividido) e inicialización de la escena
         SplitPane splitPane = new SplitPane();
         splitPane.getItems().addAll(panelIzquierdo, panelDerecho);
         splitPane.setDividerPositions(0.5);
@@ -106,15 +119,115 @@ public class VentanaProductos {
         return scene;
     }
 
-    private void mostrarProductos() {
+    private void agregarProducto() {
+        String codigo = txtCodigo.getText();
+        String nombre = txtNombre.getText();
+        String cantidadStr = txtCantidad.getText();
+        String precioStr = txtPrecio.getText();
+        String descripcion = txtDescripcion.getText();
+
+        // Verificar que los campos no estén vacíos
+        if (codigo.isEmpty() || nombre.isEmpty() || cantidadStr.isEmpty() || precioStr.isEmpty() || descripcion.isEmpty()) {
+            mostrarAlerta("Todos los campos son obligatorios.");
+            return;
+        }
+
+        // Verificar que los valores numéricos sean válidos
+        int cantidad;
+        double precio;
+        try {
+            cantidad = Integer.parseInt(cantidadStr);
+            precio = Double.parseDouble(precioStr);
+        } catch (NumberFormatException e) {
+            mostrarAlerta("Cantidad y precio deben ser valores numéricos.");
+            return;
+        }
+
+        Producto p = new Producto(codigo, nombre, precio, cantidad, descripcion);
+        listaProductos.anadirProducto(p);
+
+        txtCodigo.clear();
+        txtNombre.clear();
+        txtCantidad.clear();
+        txtPrecio.clear();
+        txtDescripcion.clear();
+
+        lista.getItems().add(p.toString());
+
     }
 
     private void buscarProducto() {
+        String codigo = txtCodigo.getText();
+        String nombre = txtNombre.getText();
+        String cantidadStr = txtCantidad.getText();
+        String precioStr = txtPrecio.getText();
+        String descripcion = txtDescripcion.getText();
+
+        lista.getItems().clear();
+
+        for (Producto p : listaProductos.getListaProductos()) {
+            boolean match = true;
+
+            if (!codigo.isEmpty() && !p.getCodigo().equals(codigo)) {
+                match = false;
+            }
+            if (!nombre.isEmpty() && !p.getNombre().equals(nombre)) {
+                match = false;
+            }
+            if (!cantidadStr.isEmpty()) {
+                try {
+                    int cantidad = Integer.parseInt(cantidadStr);
+                    if (p.getCantidad() != cantidad) {
+                        match = false;
+                    }
+                } catch (NumberFormatException e) {
+                    mostrarAlerta("Cantidad debe ser un valor numérico.");
+                    return;
+                }
+            }
+            if (!precioStr.isEmpty()) {
+                try {
+                    double precio = Double.parseDouble(precioStr);
+                    if (p.getPrecio() != precio) {
+                        match = false;
+                    }
+                } catch (NumberFormatException e) {
+                    mostrarAlerta("Precio debe ser un valor numérico.");
+                    return;
+                }
+            }
+            if (!descripcion.isEmpty() && !p.getDescripcion().equals(descripcion)) {
+                match = false;
+            }
+
+            if (match) {
+                lista.getItems().add(p.toString());
+            }
+        }
+
+        if (lista.getItems().isEmpty()) {
+            mostrarAlerta("No se encontraron productos que coincidan con los criterios de búsqueda.");
+        }
+
     }
 
     private void eliminarProducto() {
+
+
     }
 
-    private void agregarProducto() {
+    private void mostrarProductos() {
+        lista.getItems().clear();
+        for (Producto p : listaProductos.getListaProductos()) {
+            lista.getItems().add(p.toString());
+        }
+    }
+
+    private void mostrarAlerta(String mensaje) {
+        Alert alerta = new Alert(Alert.AlertType.ERROR);
+        alerta.setTitle("Error");
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
     }
 }
