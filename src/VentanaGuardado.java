@@ -28,6 +28,7 @@ public class VentanaGuardado {
 
         Label titulo = new Label("Ventana de Guardado");
         titulo.setFont(Font.font("Arial", FontWeight.BOLD, 24));
+        titulo.getStyleClass().add("label-title");
 
         VBox tituloBox = new VBox(titulo);
         tituloBox.setPadding(new Insets(0, 0, 25, 0));
@@ -45,12 +46,15 @@ public class VentanaGuardado {
         btnVolver.setOnAction(e -> MainApp.mostrarMenuPrincipal());
         btnVolver.setPrefWidth(150);
 
-        VBox botonesBox = new VBox(10, btnGuardar, btnCargar, btnVolver);
+        VBox botonesBox = new VBox(20, btnGuardar, btnCargar, btnVolver);
         botonesBox.setAlignment(Pos.CENTER);
 
         panel.getChildren().addAll(tituloBox, botonesBox);
 
-        return new Scene(panel, 400, 300);
+        Scene scene = new Scene(panel, 450, 400);
+        scene.getStylesheets().add("stylesMenu.css");
+
+        return scene;
     }
 
     private void guardar() {

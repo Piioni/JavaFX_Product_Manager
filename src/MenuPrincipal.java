@@ -15,7 +15,7 @@ public class MenuPrincipal {
 
         Label titulo = new Label("Menú Principal");
         titulo.setFont(Font.font("Arial", FontWeight.BOLD, 24));
-        titulo.getStyleClass().add("label-titulo");
+        titulo.getStyleClass().add("label-title");
 
         VBox tituloBox = new VBox(titulo);
         tituloBox.setPadding(new Insets(0, 0, 25, 0));
@@ -24,22 +24,22 @@ public class MenuPrincipal {
         Button btnProductos = new Button("Ir a Ventana de Productos");
         btnProductos.setOnAction(e -> MainApp.mostrarVentanaProductos());
         btnProductos.setPrefWidth(200);
-        btnProductos.getStyleClass().addAll("button");
+        // btnProductos.getStyleClass().addAll("button");
 
         Button btnGuardar = new Button("Guardar");
         btnGuardar.setOnAction(e -> MainApp.mostrarVentanaGuardar());
         btnGuardar.setPrefWidth(200);
-        btnGuardar.getStyleClass().addAll("button");
+        // btnGuardar.getStyleClass().addAll("button");
 
         Button btnSalir = new Button("Salir");
         btnSalir.setOnAction(e -> System.exit(0));
         btnSalir.setPrefWidth(200);
-        btnSalir.getStyleClass().addAll("button");
+        // btnSalir.getStyleClass().addAll("button");
 
         menuLayout.getChildren().addAll(tituloBox, btnProductos, btnGuardar, btnSalir);
 
         Scene scene = new Scene(menuLayout, 450, 400);
-        scene.getStylesheets().add("stylesMenuPrincipal.css");
+        scene.getStylesheets().add("stylesMenu.css");
 
         return scene;
     }
