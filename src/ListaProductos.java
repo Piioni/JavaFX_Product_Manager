@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -6,6 +7,24 @@ public class ListaProductos {
 
     public ListaProductos() {
         listaProductos = new ArrayList<>();
+    }
+
+    public void guardarProductos(File file) throws IOException {
+        // Try with resources to save the list of products to a file
+        try( ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))) {
+            out.writeObject(listaProductos);
+        }
+    }
+
+    public void cargarProductos(File file) throws IOException {
+        // Try with resources to read the list of products from a file
+        try( ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
+            listaProductos.clear();
+            List<Producto> productos = (List<Producto>) ois.readObject();
+            listaProductos.addAll(productos);
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void anadirProducto(Producto p) {

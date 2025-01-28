@@ -1,4 +1,10 @@
-public class Producto {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class Producto implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private String codigo;
     private String nombre;
     private double precio;

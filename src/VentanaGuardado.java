@@ -10,12 +10,15 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 
 public class VentanaGuardado {
     private Stage stage;
+    private ListaProductos listaProductos;
 
-    public VentanaGuardado(Stage stage) {
+    public VentanaGuardado(Stage stage, ListaProductos listaProductos) {
         this.stage = stage;
+        this.listaProductos = listaProductos;
     }
 
     public Scene getScene() {
@@ -32,15 +35,15 @@ public class VentanaGuardado {
 
         Button btnGuardar = new Button("Guardar");
         btnGuardar.setOnAction(e -> guardar());
-        btnGuardar.setPrefWidth(200);
+        btnGuardar.setPrefWidth(150);
 
         Button btnCargar = new Button("Cargar");
         btnCargar.setOnAction(e -> cargar());
-        btnCargar.setPrefWidth(200);
+        btnCargar.setPrefWidth(150);
 
         Button btnVolver = new Button("Volver");
         btnVolver.setOnAction(e -> MainApp.mostrarMenuPrincipal());
-        btnVolver.setPrefWidth(200);
+        btnVolver.setPrefWidth(150);
 
         VBox botonesBox = new VBox(10, btnGuardar, btnCargar, btnVolver);
         botonesBox.setAlignment(Pos.CENTER);
@@ -55,8 +58,12 @@ public class VentanaGuardado {
         fileChooser.setTitle("Guardar Archivo");
         File file = fileChooser.showSaveDialog(stage);
         if (file != null) {
-            System.out.println("Guardando en: " + file.getAbsolutePath());
-            // Lógica para guardar el archivo
+            try {
+                listaProductos.guardarProductos(file);
+                System.out.println("Guardado en: " + file.getAbsolutePath());
+            } catch (IOException e) {
+                System.out.println("Error al guardar el archivo: " + e.getMessage());
+            }
         } else {
             System.out.println("Por favor, seleccione una ubicación para guardar el archivo.");
         }
@@ -67,8 +74,14 @@ public class VentanaGuardado {
         fileChooser.setTitle("Cargar Archivo");
         File file = fileChooser.showOpenDialog(stage);
         if (file != null) {
-            System.out.println("Cargando desde: " + file.getAbsolutePath());
-            // Lógica para cargar el archivo
+            try {
+                listaProductos.cargarProductos(file);
+                System.out.println("Cargado desde: " + file.getAbsolutePath());
+            } catch (IOException e) {
+                System.out.println("Error al cargar el archivo: " + e.getMessage());
+            } catch (Exception e) {
+                System.out.println("Error al cargar el archivo: " + e.getMessage());
+            }
         }
     }
 }

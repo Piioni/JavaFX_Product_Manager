@@ -8,9 +8,11 @@ public class VentanaProductos {
     private ListView<String> lista;
     private ListaProductos listaProductos;
 
-    public Scene getScene() {
-        listaProductos = new ListaProductos();
+    public VentanaProductos(ListaProductos listaProductos) {
+        this.listaProductos = listaProductos;
+    }
 
+    public Scene getScene() {
         VBox panelIzquierdo = new VBox();
         panelIzquierdo.setPadding(new Insets(20));
 
