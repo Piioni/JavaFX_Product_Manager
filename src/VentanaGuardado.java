@@ -79,6 +79,7 @@ public class VentanaGuardado {
         File file = fileChooser.showOpenDialog(stage);
         if (file != null) {
             try {
+                listaProductos.clear();
                 listaProductos.cargarProductos(file.toPath());
                 System.out.println("Cargado desde: " + file.getAbsolutePath());
             } catch (IOException e) {

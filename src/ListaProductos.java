@@ -76,6 +76,10 @@ public class ListaProductos {
         return null;
     }
 
+    public void clear() {
+        listaProductos.clear();
+    }
+
 
     public Producto[] getListaProductos() {
         return listaProductos.toArray(new Producto[0]);
