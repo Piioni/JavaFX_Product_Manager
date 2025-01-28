@@ -3,7 +3,7 @@
 /* General styles for the window */
 .root {
     -fx-font-family: Arial;
-    -fx-background-color: linear-gradient(to bottom, #cbad8d, #d1c7bd); /* Background color */
+    -fx-background-color: linear-gradient(to bottom,  #cbad8d, #d1c7bd);
 }
 
 /* Styles for labels */
