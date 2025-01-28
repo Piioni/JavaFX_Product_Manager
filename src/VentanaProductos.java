@@ -1,6 +1,8 @@
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class VentanaProductos {
@@ -13,55 +15,95 @@ public class VentanaProductos {
     }
 
     public Scene getScene() {
-        VBox panelIzquierdo = new VBox();
+        VBox panelIzquierdo = new VBox(20);
         panelIzquierdo.setPadding(new Insets(20));
+        panelIzquierdo.getStyleClass().add("root");
 
+        // Sección de campos
+        VBox panelCampos = new VBox(10);
         txtCodigo = new TextField();
+        txtCodigo.getStyleClass().add("text-field");
         txtNombre = new TextField();
+        txtNombre.getStyleClass().add("text-field");
         txtCantidad = new TextField();
+        txtCantidad.getStyleClass().add("text-field");
         txtPrecio = new TextField();
+        txtPrecio.getStyleClass().add("text-field");
         txtDescripcion = new TextField();
+        txtDescripcion.getStyleClass().add("text-field");
 
-        panelIzquierdo.getChildren().addAll(
-                new Label("Código"), txtCodigo,
-                new Label("Nombre"), txtNombre,
-                new Label("Cantidad"), txtCantidad,
-                new Label("Precio"), txtPrecio,
-                new Label("Descripción"), txtDescripcion
+        Label lblCodigo = new Label("Código");
+        lblCodigo.getStyleClass().add("label");
+        Label lblNombre = new Label("Nombre");
+        lblNombre.getStyleClass().add("label");
+        Label lblCantidad = new Label("Cantidad");
+        lblCantidad.getStyleClass().add("label");
+        Label lblPrecio = new Label("Precio");
+        lblPrecio.getStyleClass().add("label");
+        Label lblDescripcion = new Label("Descripción");
+        lblDescripcion.getStyleClass().add("label");
+
+        panelCampos.getChildren().addAll(
+                lblCodigo, txtCodigo,
+                lblNombre, txtNombre,
+                lblCantidad, txtCantidad,
+                lblPrecio, txtPrecio,
+                lblDescripcion, txtDescripcion
         );
 
-        VBox panelBotonesIzquierdo = new VBox();
-        panelBotonesIzquierdo.setPadding(new Insets(10, 0, 0, 0));
-
+        // Sección de botones
+        HBox panelBotones = new HBox(25);
+        panelBotones.setAlignment(Pos.CENTER);
+        panelBotones.setPadding(new Insets(20, 0, 0, 0));
         Button btnAgregar = new Button("Agregar");
-        btnAgregar.setOnAction(e -> agreagarProudcto());
+        btnAgregar.getStyleClass().add("button");
+        btnAgregar.setOnAction(e -> agregarProducto());
         Button btnEliminar = new Button("Eliminar");
+        btnEliminar.getStyleClass().add("button");
         btnEliminar.setOnAction(e -> eliminarProducto());
         Button btnBuscar = new Button("Buscar");
+        btnBuscar.getStyleClass().add("button");
         btnBuscar.setOnAction(e -> buscarProducto());
 
-        panelBotonesIzquierdo.getChildren().addAll(btnAgregar, btnEliminar, btnBuscar);
-        panelIzquierdo.getChildren().add(panelBotonesIzquierdo);
+        panelBotones.getChildren().addAll(btnAgregar, btnEliminar, btnBuscar);
 
-        VBox panelDerecho = new VBox(10);
+        // Añadir ambas secciones al panel izquierdo
+        panelIzquierdo.getChildren().addAll(panelCampos, panelBotones);
+        panelIzquierdo.setAlignment(Pos.CENTER);
+
+        VBox panelDerecho = new VBox(20);
         panelDerecho.setPadding(new Insets(20));
 
         Label listadoProductos = new Label("Listado de productos");
-        listadoProductos.setStyle("-fx-font-weight: bold; -fx-alignment: center");
+        listadoProductos.getStyleClass().add("label-title");
 
         lista = new ListView<>();
+        lista.setPrefHeight(250);
+
+        // Sección de botones
+        HBox panelBotonesDerecha = new HBox(25);
+        panelBotonesDerecha.setAlignment(Pos.CENTER);
+        panelBotonesDerecha.setPadding(new Insets(20, 0, 0, 0));
         Button btnMostrar = new Button("Mostrar");
+        btnMostrar.getStyleClass().add("button");
         btnMostrar.setOnAction(e -> mostrarProductos());
         Button btnSalir = new Button("Salir");
+        btnSalir.getStyleClass().add("button");
         btnSalir.setOnAction(e -> MainApp.mostrarMenuPrincipal());
 
-        panelDerecho.getChildren().addAll(listadoProductos, lista, btnMostrar, btnSalir);
+        panelBotonesDerecha.getChildren().addAll(btnMostrar, btnSalir);
+
+        panelDerecho.getChildren().addAll(listadoProductos, lista, panelBotonesDerecha);
+        panelDerecho.setAlignment(Pos.CENTER);
 
         SplitPane splitPane = new SplitPane();
         splitPane.getItems().addAll(panelIzquierdo, panelDerecho);
         splitPane.setDividerPositions(0.5);
 
-        return new Scene(splitPane, 600, 400);
+        Scene scene = new Scene(splitPane, 750, 500);
+        scene.getStylesheets().add("stylesProductos.css");
+
+        return scene;
     }
 
     private void mostrarProductos() {
@@ -73,6 +115,6 @@ public class VentanaProductos {
     private void eliminarProducto() {
     }
 
-    private void agreagarProudcto() {
+    private void agregarProducto() {
     }
 }

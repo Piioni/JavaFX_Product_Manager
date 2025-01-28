@@ -84,7 +84,7 @@ public class VentanaGuardado {
             } catch (IOException e) {
                 System.out.println("Error al cargar el archivo: " + e.getMessage());
             } catch (Exception e) {
-                System.out.println("Error al cargar el archivo: " + e.getMessage());
+                System.out.println("Error al cargar el archivo 2: " + e.getMessage());
             }
         }
     }
