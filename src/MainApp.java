@@ -2,30 +2,30 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class MainApp extends Application {
-    private Stage primaryStage;
+    private static Stage primaryStage;
 
     @Override
     public void start(Stage primaryStage) {
-        this.primaryStage = primaryStage;
+        MainApp.primaryStage = primaryStage;
         primaryStage.setTitle("Main Menu");
 
         mostrarMenuPrincipal();
     }
 
-    public void mostrarMenuPrincipal() {
+    public static void mostrarMenuPrincipal() {
         MenuPrincipal menuPrincipal = new MenuPrincipal();
-        primaryStage.setScene(menuPrincipal.getScene(this));
+        primaryStage.setScene(menuPrincipal.getScene());
         primaryStage.show();
     }
 
-    public void mostrarVentanaProductos() {
-        VentanaProductos ventanaProductos = new VentanaProductos(this);
+    public static void mostrarVentanaProductos() {
+        VentanaProductos ventanaProductos = new VentanaProductos();
         primaryStage.setScene(ventanaProductos.getScene());
         primaryStage.show();
     }
 
-    public void mostrarVentanaGuardar() {
-        VentanaGuardado ventanaGuardado = new VentanaGuardado();
+    public static void mostrarVentanaGuardar() {
+        VentanaGuardado ventanaGuardado = new VentanaGuardado(primaryStage);
         primaryStage.setScene(ventanaGuardado.getScene());
         primaryStage.show();
     }

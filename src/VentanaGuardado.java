@@ -6,8 +6,18 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
+import java.io.File;
 
 public class VentanaGuardado {
+    private Stage stage;
+
+    public VentanaGuardado(Stage stage) {
+        this.stage = stage;
+    }
+
     public Scene getScene() {
         VBox panel = new VBox(20);
         panel.setPadding(new Insets(20));
@@ -22,20 +32,43 @@ public class VentanaGuardado {
 
         Button btnGuardar = new Button("Guardar");
         btnGuardar.setOnAction(e -> guardar());
+        btnGuardar.setPrefWidth(200);
 
-        Button btnCancelar = new Button("Cancelar");
-        btnCancelar.setOnAction(e -> cancelar());
+        Button btnCargar = new Button("Cargar");
+        btnCargar.setOnAction(e -> cargar());
+        btnCargar.setPrefWidth(200);
 
-        panel.getChildren().addAll(tituloBox, btnGuardar, btnCancelar);
+        Button btnVolver = new Button("Volver");
+        btnVolver.setOnAction(e -> MainApp.mostrarMenuPrincipal());
+        btnVolver.setPrefWidth(200);
 
-        return new Scene(panel, 300, 200);
+        VBox botonesBox = new VBox(10, btnGuardar, btnCargar, btnVolver);
+        botonesBox.setAlignment(Pos.CENTER);
+
+        panel.getChildren().addAll(tituloBox, botonesBox);
+
+        return new Scene(panel, 400, 300);
     }
 
     private void guardar() {
-        System.out.println("Guardando...");
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Guardar Archivo");
+        File file = fileChooser.showSaveDialog(stage);
+        if (file != null) {
+            System.out.println("Guardando en: " + file.getAbsolutePath());
+            // Lógica para guardar el archivo
+        } else {
+            System.out.println("Por favor, seleccione una ubicación para guardar el archivo.");
+        }
     }
 
-    private void cancelar() {
-        System.out.println("Cancelando...");
+    private void cargar() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Cargar Archivo");
+        File file = fileChooser.showOpenDialog(stage);
+        if (file != null) {
+            System.out.println("Cargando desde: " + file.getAbsolutePath());
+            // Lógica para cargar el archivo
+        }
     }
 }

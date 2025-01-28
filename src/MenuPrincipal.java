@@ -8,12 +8,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 public class MenuPrincipal {
-    public Scene getScene(MainApp mainApp) {
+    public Scene getScene() {
         VBox menuLayout = new VBox(20);
         menuLayout.setPadding(new Insets(20));
         menuLayout.setAlignment(Pos.CENTER);
 
-        // Título del menú principal
         Label titulo = new Label("Menú Principal");
         titulo.setFont(Font.font("Arial", FontWeight.BOLD, 24));
         titulo.getStyleClass().add("label-titulo");
@@ -22,25 +21,21 @@ public class MenuPrincipal {
         tituloBox.setPadding(new Insets(0, 0, 25, 0));
         tituloBox.setAlignment(Pos.CENTER);
 
-        // Botón para ir a la ventana de productos
         Button btnProductos = new Button("Ir a Ventana de Productos");
-        btnProductos.setOnAction(e -> mainApp.mostrarVentanaProductos());
+        btnProductos.setOnAction(e -> MainApp.mostrarVentanaProductos());
         btnProductos.setPrefWidth(200);
-        btnProductos.getStyleClass().addAll("button", "button-icon");
+        btnProductos.getStyleClass().addAll("button");
 
-        //Botón para ir a la ventana de guardado
         Button btnGuardar = new Button("Guardar");
-        btnGuardar.setOnAction(e -> mainApp.mostrarVentanaGuardar());
+        btnGuardar.setOnAction(e -> MainApp.mostrarVentanaGuardar());
         btnGuardar.setPrefWidth(200);
-        btnGuardar.getStyleClass().addAll("button", "button-icon");
+        btnGuardar.getStyleClass().addAll("button");
 
-        // Botón adicional para salir de la aplicación
         Button btnSalir = new Button("Salir");
         btnSalir.setOnAction(e -> System.exit(0));
         btnSalir.setPrefWidth(200);
-        btnSalir.getStyleClass().addAll("button", "button-icon");
+        btnSalir.getStyleClass().addAll("button");
 
-        // Agregar elementos al diseño
         menuLayout.getChildren().addAll(tituloBox, btnProductos, btnGuardar, btnSalir);
 
         Scene scene = new Scene(menuLayout, 450, 400);
