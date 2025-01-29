@@ -164,7 +164,7 @@ public class VentanaProductos {
         txtDescripcion.clear();
 
         // Añadir el producto a la lista
-        lista.getItems().add(p.toString() + "\n");
+        lista.getItems().add(p.toString());
 
     }
 
@@ -231,7 +231,7 @@ public class VentanaProductos {
         // Obtener el producto seleccionado en la lista
         String selectedItem = lista.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
-            String codigo = selectedItem.split(",")[0].trim();
+            String codigo = selectedItem.split("\n")[0].split(":")[1].trim();
             listaProductos.eliminarProducto(codigo);
             lista.getItems().remove(selectedItem);
         } else {
@@ -256,7 +256,7 @@ public class VentanaProductos {
     private void mostrarProductos() {
         lista.getItems().clear();
         for (Producto p : listaProductos.getListaProductos()) {
-            lista.getItems().add(p.toString() + "\n");;
+            lista.getItems().add(p.toString());
         }
     }
 

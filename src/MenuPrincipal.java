@@ -28,7 +28,7 @@ public class MenuPrincipal {
         menuLayout.setPadding(new Insets(20));
         menuLayout.setAlignment(Pos.CENTER);
 
-        // Creacion del titulo
+        // Creation del título
         Label titulo = new Label("Menú Principal");
         titulo.setFont(Font.font("Arial", FontWeight.BOLD, 24));
         titulo.getStyleClass().add("label-title");
