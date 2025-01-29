@@ -4,7 +4,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
@@ -12,7 +14,7 @@ public class VentanaProductos {
     private TextField txtCodigo, txtNombre, txtCantidad, txtPrecio, txtDescripcion;
     private ListView<String> lista;
     private final ListaProductos listaProductos;
-    private final Path PATH;
+    private Path PATH;
 
     public VentanaProductos(ListaProductos listaProductos, Path PATH) {
         this.listaProductos = listaProductos;
@@ -30,15 +32,15 @@ public class VentanaProductos {
         VBox panelCampos = new VBox(10);
 
         // Creación y estilización de los labels
-        Label lblCodigo = new Label("Código");
+        Label lblCodigo = new Label("Code");
         lblCodigo.getStyleClass().add("label");
-        Label lblNombre = new Label("Nombre");
+        Label lblNombre = new Label("Name");
         lblNombre.getStyleClass().add("label");
-        Label lblCantidad = new Label("Cantidad");
+        Label lblCantidad = new Label("Quantity");
         lblCantidad.getStyleClass().add("label");
-        Label lblPrecio = new Label("Precio");
+        Label lblPrecio = new Label("Price");
         lblPrecio.getStyleClass().add("label");
-        Label lblDescripcion = new Label("Descripción");
+        Label lblDescripcion = new Label("Description");
         lblDescripcion.getStyleClass().add("label");
 
         // Creation y estilización de los textfields
@@ -73,13 +75,13 @@ public class VentanaProductos {
         panelBotonesSuperior.setPadding(new Insets(20, 0, 0, 0));
 
         // Creación y estilización de los botones
-        Button btnAgregar = new Button("Agregar");
+        Button btnAgregar = new Button("Add product");
         btnAgregar.getStyleClass().add("button");
         btnAgregar.setOnAction(e -> agregarProducto());
-        Button btnEliminar = new Button("Eliminar");
+        Button btnEliminar = new Button("Delete product");
         btnEliminar.getStyleClass().add("button");
         btnEliminar.setOnAction(e -> eliminarProducto());
-        Button btnBuscar = new Button("Buscar");
+        Button btnBuscar = new Button("Search product");
         btnBuscar.getStyleClass().add("button");
         btnBuscar.setOnAction(e -> buscarProducto());
 
@@ -90,10 +92,10 @@ public class VentanaProductos {
         panelBotonesInferior.setAlignment(Pos.CENTER);
 
         // Creación y estilización de los botones
-        Button btnModificar = new Button("Modificar");
+        Button btnModificar = new Button("Update product");
         btnModificar.getStyleClass().add("button");
         btnModificar.setOnAction(e -> modificarProducto());
-        Button btnLimpiar = new Button("Limpiar");
+        Button btnLimpiar = new Button("Clean fields");
         btnLimpiar.getStyleClass().add("button");
         btnLimpiar.setOnAction(e -> {
             txtCodigo.clear();
@@ -116,11 +118,11 @@ public class VentanaProductos {
         VBox panelDerecho = new VBox(20);
         panelDerecho.setPadding(new Insets(20));
 
-        Label listadoProductos = new Label("Listado de productos");
+        Label listadoProductos = new Label("Products list");
         listadoProductos.getStyleClass().add("label-title");
 
         lista = new ListView<>();
-        lista.setPrefHeight(225);
+        lista.setPrefHeight(300);
         lista.getStyleClass().add("list-view");
 
         // Panel (derecho) de botones
@@ -129,13 +131,13 @@ public class VentanaProductos {
         panelBotonesDerecha.setPadding(new Insets(20, 0, 0, 0));
 
         // Creación y estilización de los botones
-        Button btnMostrar = new Button("Mostrar");
+        Button btnMostrar = new Button("Display all");
         btnMostrar.getStyleClass().add("button");
         btnMostrar.setOnAction(e -> mostrarProductos());
-        Button btnGuardar = new Button("Guardar cambios");
+        Button btnGuardar = new Button("Save");
         btnGuardar.getStyleClass().add("button");
         btnGuardar.setOnAction(e -> guardarCambios());
-        Button btnSalir = new Button("Salir");
+        Button btnSalir = new Button("Exit");
         btnSalir.getStyleClass().add("button");
         btnSalir.setOnAction(e -> MainApp.mostrarMenuPrincipal());
 
@@ -149,7 +151,7 @@ public class VentanaProductos {
         splitPane.getItems().addAll(panelIzquierdo, panelDerecho);
         splitPane.setDividerPositions(0.5);
 
-        Scene scene = new Scene(splitPane, 800, 500);
+        Scene scene = new Scene(splitPane, 1000, 560);
         scene.getStylesheets().add("stylesProductos.css");
 
         return scene;
@@ -330,15 +332,49 @@ public class VentanaProductos {
         // Verificar si se ha seleccionado una ubicación para guardar el archivo anteriormente
         if (PATH == null) {
             mostrarAlerta("Por favor, seleccione una ubicación para guardar el archivo.");
-            return;
-        }
-        try{
-            listaProductos.guardarProductos(PATH);
-            System.out.println("Cambios guardados en: " + PATH.toAbsolutePath());
-        } catch (IOException e) {
-            mostrarAlerta("Error al guardar el archivo: " + e.getMessage());
+            guardar();
+        } else {
+            try {
+                listaProductos.guardarProductos(PATH);
+                System.out.println("Cambios guardados en: " + PATH.toAbsolutePath());
+            } catch (IOException e) {
+                mostrarAlerta("Error al guardar el archivo: " + e.getMessage());
+            }
         }
     }
+
+    private void guardar() {
+        // Permite al usuario seleccionar la ubicación para guardar el archivo
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Guardar Archivo");
+
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Archivos JSON (*.json)", "*.json");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        File file = fileChooser.showSaveDialog(null);
+        if (file != null) {
+            try {
+                // Asegurarse de que el archivo tenga la extensión .json
+                if (!file.getPath().endsWith(".json")) {
+                    file = new File(file.getPath() + ".json");
+                }
+
+                // Guardar la lista de productos en un archivo JSON
+                listaProductos.guardarProductos(file.toPath());
+                PATH = file.toPath(); // Guardar la ubicación del archivo para futuras referencias
+                System.out.println("Guardado en: " + file.getAbsolutePath());
+            } catch (IOException e) {
+                mostrarAlerta("Error al guardar el archivo: " + e.getMessage());
+            } catch (SecurityException e) {
+                mostrarAlerta("Permiso denegado: " + e.getMessage());
+            } catch (Exception e) {
+                mostrarAlerta("Error inesperado: " + e.getMessage());
+            }
+        } else {
+            mostrarAlerta("Por favor, seleccione una ubicación para guardar el archivo.");
+        }
+    }
+
 
     private void mostrarProductos() {
         lista.getItems().clear();

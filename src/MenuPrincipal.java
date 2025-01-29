@@ -22,7 +22,7 @@ public class MenuPrincipal {
     }
 
     public Scene getScene() {
-        // Creacion de la estructura de la escena
+        // Creation de la estructura de la escena
         VBox menuLayout = new VBox(20);
         menuLayout.setPadding(new Insets(20));
         menuLayout.setAlignment(Pos.CENTER);
@@ -36,24 +36,20 @@ public class MenuPrincipal {
         tituloBox.setPadding(new Insets(0, 0, 25, 0));
         tituloBox.setAlignment(Pos.CENTER);
 
-        // Creacion de los botones
-        Button btnProductos = new Button("Ir a Ventana de Productos");
+        // Creation de los botones
+        Button btnProductos = new Button("Products management");
         btnProductos.setOnAction(e -> MainApp.mostrarVentanaProductos());
         btnProductos.setPrefWidth(200);
 
-        Button btnGuardar = new Button("Guardar como");
-        btnGuardar.setOnAction(e -> guardar());
-        btnGuardar.setPrefWidth(200);
-
-        Button btnCargar = new Button("Cargar");
+        Button btnCargar = new Button("Load");
         btnCargar.setOnAction(e -> cargar());
         btnCargar.setPrefWidth(200);
 
-        Button btnSalir = new Button("Salir");
+        Button btnSalir = new Button("Exit");
         btnSalir.setOnAction(e -> System.exit(0));
         btnSalir.setPrefWidth(200);
 
-        menuLayout.getChildren().addAll(tituloBox, btnProductos, btnGuardar, btnCargar, btnSalir);
+        menuLayout.getChildren().addAll(tituloBox, btnProductos, btnCargar, btnSalir);
 
         Scene scene = new Scene(menuLayout, 450, 400);
         scene.getStylesheets().add("stylesMenu.css");
@@ -61,34 +57,6 @@ public class MenuPrincipal {
         return scene;
     }
 
-    // metodos de los botones
-
-    private void guardar() {
-        // Permite al usuario seleccionar la ubicación para guardar el archivo
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Guardar Archivo");
-
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Archivos JSON (*.json)", "*.json");
-        fileChooser.getExtensionFilters().add(extFilter);
-
-        File file = fileChooser.showSaveDialog(stage);
-        if (file != null) {
-            try {
-                // Asegurarse de que el archivo tenga la extensión .json
-                if (!file.getPath().endsWith(".json")) {
-                    file = new File(file.getPath() + ".json");
-                }
-
-                // Guardar la lista de productos en un archivo JSON
-                listaProductos.guardarProductos(file.toPath());
-                System.out.println("Guardado en: " + file.getAbsolutePath());
-            } catch (IOException e) {
-                System.out.println("Error al guardar el archivo: " + e.getMessage());
-            }
-        } else {
-            System.out.println("Por favor, seleccione una ubicación para guardar el archivo.");
-        }
-    }
 
     private void cargar() {
         // Permite al usuario seleccionar un archivo para cargar

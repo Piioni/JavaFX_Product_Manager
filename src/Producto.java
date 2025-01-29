@@ -1,5 +1,5 @@
 public class Producto {
-    private String codigo;
+    private final String codigo;
     private String nombre;
     private double precio;
     private int cantidad;

@@ -4,7 +4,9 @@ This project is a Java application for managing a list of products. It includes 
 ## ✨ Features
 * ➕ Add new products to the list
 * ❌ Delete products from the list
-* 🔍 Search for products by various criteria
+* 🔍 Search for products by various criteria 
+* ✏️ Modify a product's details given its ID 
+* 💾 Save the list to a JSON file
 * 📋 Display all products in the list
 
 ## 🚀 Installation
@@ -22,13 +24,14 @@ java -jar ProductManager.jar
 * 🆕 You will see an empty list of products.
 * 📝 Fill in the product details and click the **"Add Product"** button.
 * ➕ You can add as many products as you want.
-* 💾 You will need to save the list to a new JSON file of your choice by clicking the **"Save as"** button.
+* 💾 You will need to save the list to a new JSON file of your choice by clicking the **"Save"** button.
 * 📂 After saving the list, you can load it back by clicking the **"Load"** button and selecting the JSON file.
 * 🔄 When you load a list of products, the program will allow you to use the **"Save"** button directly to save the list to the same file you have loaded.
 
 ### 2. Search for products by various criteria
 * 🔍 Fill in the search criteria and click the **"Search"** button.
-* 📋 The program will display the products that match the search criteria.
+* 📋 The program will fill in the text fields with the product details.
+* 🔄 You can modify the product details and click the **"Update Product"** button to save the changes.
 * ❌ If no products match the criteria, a message will be displayed.
 * 🔄 You can search by any combination of criteria.
 
@@ -39,7 +42,7 @@ java -jar ProductManager.jar
 * 🔄 You can delete as many products as you want.
 
 ### 4. Display all products in the list
-* 📋 Click the **"Display All Products"** button.
+* 📋 Click the **"Display All"** button.
 * 👀 The program will display all products in the list.
 * ❌ If the list is empty, a message will be displayed.
 
