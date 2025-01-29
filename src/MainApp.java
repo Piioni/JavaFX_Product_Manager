@@ -15,7 +15,7 @@ public class MainApp extends Application {
     }
 
     public static void mostrarMenuPrincipal() {
-        MenuPrincipal menuPrincipal = new MenuPrincipal();
+        MenuPrincipal menuPrincipal = new MenuPrincipal(primaryStage, listaProductos);
         primaryStage.setScene(menuPrincipal.getScene());
         primaryStage.show();
     }
@@ -23,12 +23,6 @@ public class MainApp extends Application {
     public static void mostrarVentanaProductos() {
         VentanaProductos ventanaProductos = new VentanaProductos(listaProductos);
         primaryStage.setScene(ventanaProductos.getScene());
-        primaryStage.show();
-    }
-
-    public static void mostrarVentanaGuardar() {
-        VentanaGuardado ventanaGuardado = new VentanaGuardado(primaryStage, listaProductos);
-        primaryStage.setScene(ventanaGuardado.getScene());
         primaryStage.show();
     }
 
