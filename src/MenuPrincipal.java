@@ -23,10 +23,12 @@ public class MenuPrincipal {
     }
 
     public Scene getScene() {
+        // Creacion de la estructura de la escena
         VBox menuLayout = new VBox(20);
         menuLayout.setPadding(new Insets(20));
         menuLayout.setAlignment(Pos.CENTER);
 
+        // Creacion del titulo
         Label titulo = new Label("Menú Principal");
         titulo.setFont(Font.font("Arial", FontWeight.BOLD, 24));
         titulo.getStyleClass().add("label-title");
@@ -35,6 +37,7 @@ public class MenuPrincipal {
         tituloBox.setPadding(new Insets(0, 0, 25, 0));
         tituloBox.setAlignment(Pos.CENTER);
 
+        // Creacion de los botones
         Button btnProductos = new Button("Ir a Ventana de Productos");
         btnProductos.setOnAction(e -> MainApp.mostrarVentanaProductos());
         btnProductos.setPrefWidth(200);
@@ -59,12 +62,16 @@ public class MenuPrincipal {
         return scene;
     }
 
+    // metodos de los botones
+
     private void guardar() {
+        // Permite al usuario seleccionar la ubicación para guardar el archivo
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Guardar Archivo");
         File file = fileChooser.showSaveDialog(stage);
         if (file != null) {
             try {
+                // Guardar la lista de productos en un archivo JSON
                 listaProductos.guardarProductos(file.toPath());
                 System.out.println("Guardado en: " + file.getAbsolutePath());
             } catch (IOException e) {
@@ -76,14 +83,16 @@ public class MenuPrincipal {
     }
 
     private void cargar() {
+        // Permite al usuario seleccionar un archivo para cargar
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Cargar Archivo");
         File file = fileChooser.showOpenDialog(stage);
         if (file != null) {
             try {
+                // Limpiar la lista de productos y carga los productos desde el archivo
                 listaProductos.clear();
                 listaProductos.cargarProductos(file.toPath());
-                MainApp.setPath(file.toPath());
+                MainApp.setPath(file.toPath()); // Guardar la ubicación del archivo para futuras referencias
                 System.out.println("Cargado desde: " + file.getAbsolutePath());
                 MainApp.mostrarVentanaProductos();
             } catch (IOException e) {

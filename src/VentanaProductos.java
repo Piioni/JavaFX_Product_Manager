@@ -11,8 +11,8 @@ import java.nio.file.Path;
 public class VentanaProductos {
     private TextField txtCodigo, txtNombre, txtCantidad, txtPrecio, txtDescripcion;
     private ListView<String> lista;
-    private ListaProductos listaProductos;
-    private Path PATH;
+    private final ListaProductos listaProductos;
+    private final Path PATH;
 
     public VentanaProductos(ListaProductos listaProductos, Path PATH) {
         this.listaProductos = listaProductos;
@@ -156,17 +156,19 @@ public class VentanaProductos {
         Producto p = new Producto(codigo, nombre, precio, cantidad, descripcion);
         listaProductos.anadirProducto(p);
 
+        // Limpiar los textfields
         txtCodigo.clear();
         txtNombre.clear();
         txtCantidad.clear();
         txtPrecio.clear();
         txtDescripcion.clear();
 
-        lista.getItems().add(p.toString());
+        // Añadir el producto a la lista
+        lista.getItems().add(p.toString() + "\n");
 
     }
 
-    // metodo para buscar un producto
+    // metodo para buscar uno o varios producto
     private void buscarProducto() {
         String codigo = txtCodigo.getText();
         String nombre = txtNombre.getText();
@@ -176,9 +178,12 @@ public class VentanaProductos {
 
         lista.getItems().clear();
 
+        // Recorrer la lista de productos
         for (Producto p : listaProductos.getListaProductos()) {
+            // Inicializa el match a true
             boolean match = true;
 
+            // Verificar si los campos de búsqueda no están vacíos y si coinciden con los valores del producto
             if (!codigo.isEmpty() && !p.getCodigo().equals(codigo)) {
                 match = false;
             }
@@ -223,6 +228,7 @@ public class VentanaProductos {
     }
 
     private void eliminarProducto() {
+        // Obtener el producto seleccionado en la lista
         String selectedItem = lista.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
             String codigo = selectedItem.split(",")[0].trim();
@@ -250,7 +256,7 @@ public class VentanaProductos {
     private void mostrarProductos() {
         lista.getItems().clear();
         for (Producto p : listaProductos.getListaProductos()) {
-            lista.getItems().add(p.toString());
+            lista.getItems().add(p.toString() + "\n");;
         }
     }
 
