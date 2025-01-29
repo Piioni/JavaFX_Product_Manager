@@ -1,9 +1,11 @@
 import javafx.application.Application;
 import javafx.stage.Stage;
+import java.nio.file.Path;
 
 public class MainApp extends Application {
     private static Stage primaryStage;
     private static ListaProductos listaProductos;
+    private static Path PATH ;
 
     @Override
     public void start(Stage primaryStage) {
@@ -21,9 +23,13 @@ public class MainApp extends Application {
     }
 
     public static void mostrarVentanaProductos() {
-        VentanaProductos ventanaProductos = new VentanaProductos(listaProductos);
+        VentanaProductos ventanaProductos = new VentanaProductos(listaProductos, PATH);
         primaryStage.setScene(ventanaProductos.getScene());
         primaryStage.show();
+    }
+
+    public static void setPath(Path path) {
+        PATH = path;
     }
 
     public static void main(String[] args) {

@@ -5,13 +5,18 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.io.IOException;
+import java.nio.file.Path;
+
 public class VentanaProductos {
     private TextField txtCodigo, txtNombre, txtCantidad, txtPrecio, txtDescripcion;
     private ListView<String> lista;
     private ListaProductos listaProductos;
+    private Path PATH;
 
-    public VentanaProductos(ListaProductos listaProductos) {
+    public VentanaProductos(ListaProductos listaProductos, Path PATH) {
         this.listaProductos = listaProductos;
+        this.PATH = PATH;
     }
 
     public Scene getScene() {
@@ -99,11 +104,14 @@ public class VentanaProductos {
         Button btnMostrar = new Button("Mostrar");
         btnMostrar.getStyleClass().add("button");
         btnMostrar.setOnAction(e -> mostrarProductos());
+        Button btnGuardar = new Button("Guardar cambios");
+        btnGuardar.getStyleClass().add("button");
+        btnGuardar.setOnAction(e -> guardarCambios());
         Button btnSalir = new Button("Salir");
         btnSalir.getStyleClass().add("button");
         btnSalir.setOnAction(e -> MainApp.mostrarMenuPrincipal());
 
-        panelBotonesDerecha.getChildren().addAll(btnMostrar, btnSalir);
+        panelBotonesDerecha.getChildren().addAll(btnMostrar, btnGuardar, btnSalir);
 
         panelDerecho.getChildren().addAll(listadoProductos, lista, panelBotonesDerecha);
         panelDerecho.setAlignment(Pos.CENTER);
@@ -118,6 +126,8 @@ public class VentanaProductos {
 
         return scene;
     }
+
+    // metodos de los botones
 
     private void agregarProducto() {
         String codigo = txtCodigo.getText();
@@ -156,6 +166,7 @@ public class VentanaProductos {
 
     }
 
+    // metodo para buscar un producto
     private void buscarProducto() {
         String codigo = txtCodigo.getText();
         String nombre = txtNombre.getText();
@@ -212,8 +223,28 @@ public class VentanaProductos {
     }
 
     private void eliminarProducto() {
+        String selectedItem = lista.getSelectionModel().getSelectedItem();
+        if (selectedItem != null) {
+            String codigo = selectedItem.split(",")[0].trim();
+            listaProductos.eliminarProducto(codigo);
+            lista.getItems().remove(selectedItem);
+        } else {
+            mostrarAlerta("Seleccione un producto para eliminar.");
+        }
 
+    }
 
+    public void guardarCambios() {
+        if (PATH == null) {
+            mostrarAlerta("Por favor, seleccione una ubicación para guardar el archivo.");
+            return;
+        }
+        try{
+            listaProductos.guardarProductos(PATH);
+            System.out.println("Cambios guardados en: " + PATH.toAbsolutePath());
+        } catch (IOException e) {
+            mostrarAlerta("Error al guardar el archivo: " + e.getMessage());
+        }
     }
 
     private void mostrarProductos() {

@@ -59,12 +59,14 @@ public class ListaProductos {
         listaProductos.add(p);
     }
 
-    public void eliminarProducto(int i) {
-        if (i >= 0 && i < listaProductos.size()) {
-            listaProductos.remove(i);
+    public void eliminarProducto(String codigo) {
+        Producto p = buscarProducto(codigo);
+        if (p != null) {
+            listaProductos.remove(p);
         } else {
-            System.out.println("Índice fuera de rango.");
+            System.out.println("Producto no encontrado.");
         }
+
     }
 
     public Producto buscarProducto(String codigo) {

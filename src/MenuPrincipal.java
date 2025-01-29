@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 
 public class MenuPrincipal {
     private ListaProductos listaProductos;
@@ -38,7 +39,7 @@ public class MenuPrincipal {
         btnProductos.setOnAction(e -> MainApp.mostrarVentanaProductos());
         btnProductos.setPrefWidth(200);
 
-        Button btnGuardar = new Button("Guardar");
+        Button btnGuardar = new Button("Guardar como");
         btnGuardar.setOnAction(e -> guardar());
         btnGuardar.setPrefWidth(200);
 
@@ -82,7 +83,9 @@ public class MenuPrincipal {
             try {
                 listaProductos.clear();
                 listaProductos.cargarProductos(file.toPath());
+                MainApp.setPath(file.toPath());
                 System.out.println("Cargado desde: " + file.getAbsolutePath());
+                MainApp.mostrarVentanaProductos();
             } catch (IOException e) {
                 System.out.println("Error al cargar el archivo: " + e.getMessage());
             } catch (Exception e) {
@@ -90,4 +93,5 @@ public class MenuPrincipal {
             }
         }
     }
+
 }
