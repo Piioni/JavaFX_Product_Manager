@@ -14,12 +14,43 @@ This project is a Java application for managing a list of products. It includes 
 java -jar ProductManager.jar
 ```
 
+---
+
+# 🛠️ How to use
+
+### 1. First time running the program
+* 🆕 You will see an empty list of products.
+* 📝 Fill in the product details and click the **"Add Product"** button.
+* ➕ You can add as many products as you want.
+* 💾 You will need to save the list to a new JSON file of your choice by clicking the **"Save as"** button.
+* 📂 After saving the list, you can load it back by clicking the **"Load"** button and selecting the JSON file.
+* 🔄 When you load a list of products, the program will allow you to use the **"Save"** button directly to save the list to the same file you have loaded.
+
+### 2. Search for products by various criteria
+* 🔍 Fill in the search criteria and click the **"Search"** button.
+* 📋 The program will display the products that match the search criteria.
+* ❌ If no products match the criteria, a message will be displayed.
+* 🔄 You can search by any combination of criteria.
+
+### 3. Delete products from the list
+* 🗑️ Select the product you want to delete from the list.
+* ❌ Click the **"Delete Product"** button.
+* 🆓 The product will be removed from the list.
+* 🔄 You can delete as many products as you want.
+
+### 4. Display all products in the list
+* 📋 Click the **"Display All Products"** button.
+* 👀 The program will display all products in the list.
+* ❌ If the list is empty, a message will be displayed.
+
+---
+
 # 📝 Notes
-* 📂 The program products are stored in a JSON file
-* 💾 You can choose to save the products to a file or load them from a file, just make sure it's a .JSON file
+* 📂 The program products are stored in a JSON file that can be loaded and saved.
 * 🖥️ The program uses JavaFX for the GUI
 * 🛠️ The program uses a manual JSON parser for serialization and deserialization
-* 📝 You can modify the tasks.json file to add, delete, or modify tasks.
+
+
 
 # 🤝  Contributing 
 Pull requests are welcome. 
