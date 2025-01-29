@@ -1,10 +1,4 @@
-import java.io.Serial;
-import java.io.Serializable;
-
-public class Producto implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 1L;
-
+public class Producto {
     private String codigo;
     private String nombre;
     private double precio;
@@ -51,25 +45,22 @@ public class Producto implements Serializable {
                 "Descripción: " + descripcion + "\n";
     }
 
+    // Getters
     public String getCodigo() {
         return codigo;
     }
-
 
     public String getNombre() {
         return nombre;
     }
 
-
     public double getPrecio() {
         return precio;
     }
 
-
     public int getCantidad() {
         return cantidad;
     }
-
 
     public String getDescripcion() {
         return descripcion;

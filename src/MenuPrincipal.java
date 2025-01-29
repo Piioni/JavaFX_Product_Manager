@@ -11,11 +11,10 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
 
 public class MenuPrincipal {
-    private ListaProductos listaProductos;
-    private Stage stage;
+    private final ListaProductos listaProductos;
+    private final Stage stage;
 
     public MenuPrincipal(Stage stage, ListaProductos listaProductos) {
         this.stage = stage;

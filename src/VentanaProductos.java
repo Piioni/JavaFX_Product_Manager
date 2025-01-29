@@ -130,6 +130,7 @@ public class VentanaProductos {
     // metodos de los botones
 
     private void agregarProducto() {
+        // Obtener los valores de los textfields
         String codigo = txtCodigo.getText();
         String nombre = txtNombre.getText();
         String cantidadStr = txtCantidad.getText();
@@ -231,6 +232,7 @@ public class VentanaProductos {
         // Obtener el producto seleccionado en la lista
         String selectedItem = lista.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
+            // Obtener el código del producto seleccionado
             String codigo = selectedItem.split("\n")[0].split(":")[1].trim();
             listaProductos.eliminarProducto(codigo);
             lista.getItems().remove(selectedItem);
@@ -240,7 +242,9 @@ public class VentanaProductos {
 
     }
 
+    // Metodo para guardar los cambios en el archivo sin necesidad de seleccionar la ubicación
     public void guardarCambios() {
+        // Verificar si se ha seleccionado una ubicación para guardar el archivo anteriormente
         if (PATH == null) {
             mostrarAlerta("Por favor, seleccione una ubicación para guardar el archivo.");
             return;
@@ -261,6 +265,7 @@ public class VentanaProductos {
     }
 
     private void mostrarAlerta(String mensaje) {
+        // Crear una alerta para mostrar un mensaje de error
         Alert alerta = new Alert(Alert.AlertType.ERROR);
         alerta.setTitle("Error");
         alerta.setHeaderText(null);

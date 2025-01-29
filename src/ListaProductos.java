@@ -78,12 +78,12 @@ public class ListaProductos {
         return null;
     }
 
+    public Producto[] getListaProductos() {
+        return listaProductos.toArray(new Producto[0]);
+    }
+
     public void clear() {
         listaProductos.clear();
     }
 
-
-    public Producto[] getListaProductos() {
-        return listaProductos.toArray(new Producto[0]);
-    }
 }
