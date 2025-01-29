@@ -15,7 +15,7 @@ This project is a Java application for managing a list of products. It includes 
 3. **You'll need to have JavaFX 21 installed on your machine**
 2. **Run the JAR file using the following command:**
 ```bash
-java --module-path /path/to/javafx-sdk-20/lib --add-modules javafx.controls,javafx.fxml -jar MyApp.jar
+java --module-path /path/to/javafx-sdk-20/lib --add-modules javafx.controls,javafx.fxml -jar ProductManager.jar
 ```
 
 ---
