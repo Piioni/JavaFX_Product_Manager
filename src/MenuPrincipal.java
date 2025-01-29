@@ -67,9 +67,18 @@ public class MenuPrincipal {
         // Permite al usuario seleccionar la ubicación para guardar el archivo
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Guardar Archivo");
+
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Archivos JSON (*.json)", "*.json");
+        fileChooser.getExtensionFilters().add(extFilter);
+
         File file = fileChooser.showSaveDialog(stage);
         if (file != null) {
             try {
+                // Asegurarse de que el archivo tenga la extensión .json
+                if (!file.getPath().endsWith(".json")) {
+                    file = new File(file.getPath() + ".json");
+                }
+
                 // Guardar la lista de productos en un archivo JSON
                 listaProductos.guardarProductos(file.toPath());
                 System.out.println("Guardado en: " + file.getAbsolutePath());
@@ -85,6 +94,10 @@ public class MenuPrincipal {
         // Permite al usuario seleccionar un archivo para cargar
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Cargar Archivo");
+
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json");
+        fileChooser.getExtensionFilters().add(extFilter);
+
         File file = fileChooser.showOpenDialog(stage);
         if (file != null) {
             try {
