@@ -3,7 +3,7 @@
 /* General styles for the window */
 .root {
     -fx-font-family: Arial;
-    -fx-background-color: linear-gradient(to bottom,  #cbad8d, #d1c7bd);
+    -fx-background-color: linear-gradient(to bottom, #cbad8d, #d1c7bd);
 }
 
 /* Styles for labels */
@@ -42,7 +42,6 @@
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5);
-
 }
 
 .button:hover {
@@ -55,18 +54,30 @@
     -fx-text-fill: white; /* Button text color when pressed */
 }
 
-/* Estilo para las celdas de la lista de productos */
+/* Style for the product list cells */
 .list-cell {
     -fx-padding: 10px;
     -fx-border-color: #3a2d28;
     -fx-border-width: 1px;
-    -fx-border-radius: 5px;
-    -fx-background-radius: 5px;
+    -fx-border-radius: 10px; /* Increased border radius */
+    -fx-background-radius: 10px; /* Increased background radius */
     -fx-background-color: #ece4dc;
     -fx-spacing: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 3);
 }
 
 .list-cell .text {
     -fx-font-size: 14px;
     -fx-text-fill: #3a2d28;
+}
+
+/* Style for selected list cells */
+.list-cell:selected {
+    -fx-background-color: #3a2d28; /* Background color for selected cell */
+    -fx-border-color: #f1ede6; /* Border color for selected cell */
+    -fx-text-fill: white; /* Text color for selected cell */
+}
+
+.list-cell:selected .text {
+    -fx-text-fill: white; /* Text color for selected cell text */
 }
