@@ -212,6 +212,11 @@ public class VentanaProductos {
         String precioStr = txtPrecio.getText();
         String descripcion = txtDescripcion.getText();
 
+        if (codigo.isEmpty() && nombre.isEmpty() && cantidadStr.isEmpty() && precioStr.isEmpty() && descripcion.isEmpty()) {
+            mostrarAlerta("Por favor, llene al menos un campo para buscar.");
+            return;
+        }
+
         lista.getItems().clear();
 
         // Recorrer la lista de productos
@@ -266,6 +271,7 @@ public class VentanaProductos {
         if (lista.getItems().isEmpty()) {
             mostrarAlerta("No se encontraron productos que coincidan con los criterios de búsqueda.");
         }
+
 
     }
 
@@ -348,7 +354,8 @@ public class VentanaProductos {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Guardar Archivo");
 
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Archivos JSON (*.json)", "*.json");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.
+                ExtensionFilter("Archivos JSON (*.json)", "*.json");
         fileChooser.getExtensionFilters().add(extFilter);
 
         File file = fileChooser.showSaveDialog(null);
@@ -375,7 +382,6 @@ public class VentanaProductos {
         }
     }
 
-
     private void mostrarProductos() {
         lista.getItems().clear();
         for (Producto p : listaProductos.getListaProductos()) {
@@ -399,4 +405,5 @@ public class VentanaProductos {
         alerta.setContentText(mensaje);
         alerta.showAndWait();
     }
+
 }
